@@ -1,0 +1,19 @@
+{
+  "db": {
+    "name": "DB_NAME",
+    "host": "DB_HOST",
+    "port": "DB_PORT",
+    "user": "DB_USER",
+    "password": "DB_PASSWORD"
+  },
+  "server": {
+    "port": "APP_PORT",
+    "cors": {
+      "origin": "CORS_ORIGIN",
+      "methods": "CORS_METHODS",
+      "allowedHeaders": "CORS_ALLOWED_HEADERS",
+      "exposedHeaders": "CORS_EXPOSED_HEADERS",
+      "credentials": "CORS_CREDENTIALS"
+    }
+  }
+}
