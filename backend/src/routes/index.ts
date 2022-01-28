@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import expensesRouter from './expenses';
+import expensesRouter from './expense.routes';
 
 const routes = Router();
 routes.use('/expenses', expensesRouter);

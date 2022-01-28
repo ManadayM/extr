@@ -1,7 +1,7 @@
 import { Pool, PoolConfig } from "pg";
 
 class DB {
-  _pool?: Pool;
+  _pool!: Pool;
 
   connect(options: PoolConfig) {
     this._pool = new Pool(options);
@@ -13,11 +13,11 @@ class DB {
   }
 
   close() {
-    return this._pool?.end();
+    return this._pool.end();
   }
 
-  query(sql: string, params: any) {
-    return this._pool?.query(sql, params);
+  query(sql: string, params?: any) {
+    return this._pool.query(sql, params);
   }
 }
 
