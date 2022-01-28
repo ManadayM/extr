@@ -10,6 +10,7 @@ exports.up = pgm => {
       amount REAL CHECK(amount > 0),
       category_id INTEGER REFERENCES categories(id) ON DELETE RESTRICT,
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      expense_date DATE DEFAULT CURRENT_DATE,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
