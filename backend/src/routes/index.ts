@@ -1,8 +1,9 @@
 import { Router } from "express";
 
-import expensesRouter from './expense.routes';
+import baseRouter from './base.routes';
 
 const routes = Router();
-routes.use('/expenses', expensesRouter);
+
+routes.use('/api', baseRouter);
 
 export default routes;
