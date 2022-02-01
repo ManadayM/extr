@@ -15,7 +15,7 @@ export APP_VERSION=$(npm run env | grep npm_package_version | cut -d '=' -f 2)
 # Check if the key environment variables exist.
 # In this list we only check the environment variable configuration
 # which will be necessary to spin up the environment
-for name in DB_USER DB_PASSWORD; do
+for name in DB_USER DB_PASSWORD JWT_SECRET; do
   eval "[ -z \"\${$name}\" ]" && echo "Error: \$$name not set" && ERR=1
 done
 

@@ -8,6 +8,7 @@ export type DBConfig = {
 
 export type ServerConfig = {
   port: number;
+  jwtSecret: string;
   cors?: {
     origin?: string;
     methods?: string;
