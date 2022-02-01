@@ -1,14 +1,14 @@
 import { hash } from "bcrypt";
+
 import { BaseUser, User } from "../models";
 import { dbUtils } from "../utils";
 import db from "../db";
 
-export const findByEmail = async (email: string) => {
+export const findByEmail = async (email: string): Promise<User | null> => {
   const query = 'SELECT * FROM users WHERE email = $1;';
 
   try {
     const { rows } = await db.query(query, [email]);
-    console.log(`rows: ${rows.length}`);
     if (rows.length) {
       return dbUtils.toCamelCase(rows)[0];
     }
@@ -16,16 +16,12 @@ export const findByEmail = async (email: string) => {
     return null;
   }
   catch (err) {
-    console.log('Error: ', err);
     return null;
   }
 }
 
 export const create = async (newUser: BaseUser): Promise<User> => {
   const { email, password } = newUser;
-
-  debugger
-
   const user = await findByEmail(email);
 
   if (user === null) {

@@ -5,4 +5,7 @@ export interface BaseUser {
 
 export interface User extends BaseUser {
   id: number;
+  username: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
