@@ -24,10 +24,14 @@ export const create = async (newUser: BaseUser): Promise<User> => {
   const { email, password } = newUser;
   const user = await findByEmail(email);
 
+  console.log('user: ', user);
+  
   if (user === null) {
     const hashedPassword = await hash(password, 10);
+    console.log(hashedPassword);
     const query = 'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;';
     const { rows } = await db.query(query, [email, hashedPassword]);
+    console.log('rows: ', rows);
 
     return dbUtils.toCamelCase(rows)[0];
   }
