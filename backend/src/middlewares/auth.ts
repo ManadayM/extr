@@ -5,20 +5,20 @@ import { verify } from "jsonwebtoken";
 
 const JWT_SECRET: string = config.get('server.jwtSecret');
 
-export function authorize(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers['x-access-token'] as string;
+export function authorize(req: any, res: Response, next: NextFunction) {
+    const token = req.headers['x-access-token'] as string;
 
-  if(!token) {
-      return res.status(StatusCodes.UNAUTHORIZED).send({ error: true, message: 'Authentication token required.' });
-  }
+    if (!token) {
+        return res.status(StatusCodes.UNAUTHORIZED).send({ error: true, message: 'Authentication token required.' });
+    }
 
-  try {
-      const decoded = verify(token, JWT_SECRET);
-      console.log(`decoded: ${decoded}`)
-  } catch (error) {
-      return res.status(StatusCodes.UNAUTHORIZED).send({ error: true, message: 'Authentication token required.' });
-  }
+    try {
+        const decoded: any = verify(token, JWT_SECRET);
+        const { id, email } = decoded;
+        req.user = { id, email };
 
-
-  next();
+        next();
+    } catch (error) {
+        return res.status(StatusCodes.UNAUTHORIZED).send({ error: true, message: 'Authentication token required.' });
+    }
 }

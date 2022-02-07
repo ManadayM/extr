@@ -9,11 +9,15 @@ import { UserService } from "../services";
 
 const JWT_SECRET: string = config.get('server.jwtSecret');
 
+const generateToken = ({ id, email }: { id: number, email: string }) => {
+  return sign({ id, email }, JWT_SECRET, { expiresIn: '24h' });
+};
+
 export const register = async (req: Request, res: Response) => {
   const userRecord: BaseUser = req.body;
   try {
     const user = await UserService.create(userRecord);
-    const token = sign({ email: user.email }, JWT_SECRET, { expiresIn: '24h' });
+    const token = generateToken(user);
 
     return res.status(StatusCodes.CREATED).send({ token });
   } catch (error) {
@@ -35,7 +39,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(StatusCodes.UNAUTHORIZED).send({ error: true, message: 'Invalid username or password.' });
     }
 
-    const token = sign({ email: user.email }, JWT_SECRET, { expiresIn: '24h' });
+    const token = generateToken(user);
     return res.status(StatusCodes.OK).send({ token });
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).send({ error: true, message: 'Bad request.' });

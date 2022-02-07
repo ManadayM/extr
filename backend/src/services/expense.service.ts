@@ -2,14 +2,15 @@ import { BaseExpense, Expense } from "../models";
 import { dbUtils } from "../utils";
 import db from "../db";
 
-export const findAll = async (): Promise<Expense[]> => {
+export const findAll = async (userId: number): Promise<Expense[]> => {
   const query = `
     SELECT amount, categories.name, expense_date 
     FROM expenses
-    JOIN categories ON categories.id = expenses.category_id;
+    JOIN categories ON categories.id = expenses.category_id
+    WHERE user_id = $1;
   `;
 
-  const { rows } = await db.query(query);
+  const { rows } = await db.query(query, [userId]);
   return dbUtils.toCamelCase(rows);
 };
 

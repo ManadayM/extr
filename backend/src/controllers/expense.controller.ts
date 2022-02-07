@@ -4,11 +4,11 @@ import StatusCodes from "http-status-codes";
 import { ExpenseService } from "../services";
 import { BaseExpense } from "../models";
 
-export const addExpense = async (req: Request, res: Response) => {
+export const addExpense = async (req: any, res: Response) => {
 
   // TODO: extract user id from the request.
   // { amount: 10.76, categoryId: 10, userId: 23, expenseDate: '2022-01-22' }
-  const expenseRecord: BaseExpense = req.body;
+  const expenseRecord: BaseExpense = { ...req.body, userId: req.user.id };
 
   try {
     const expense = await ExpenseService.create(expenseRecord);
@@ -18,13 +18,12 @@ export const addExpense = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).end();
   }
+};
 
-}
-
-export const getAllExpenses = async (req: Request, res: Response) => {
+export const getAllExpenses = async (req: any, res: Response) => {
 
   try {
-    const expenses = await ExpenseService.findAll();
+    const expenses = await ExpenseService.findAll(req.user.id);
 
     return res.status(StatusCodes.OK).send(expenses);
 
