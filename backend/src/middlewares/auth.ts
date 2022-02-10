@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from "express";
 import StatusCodes from "http-status-codes";
 import { verify } from "jsonwebtoken";
 
+import { authSchema } from "../schemas";
+
 const JWT_SECRET: string = config.get('server.jwtSecret');
 
 export function authorize(req: any, res: Response, next: NextFunction) {
@@ -20,5 +22,15 @@ export function authorize(req: any, res: Response, next: NextFunction) {
         next();
     } catch (error) {
         return res.status(StatusCodes.UNAUTHORIZED).send({ error: true, message: 'Authentication token required.' });
+    }
+}
+
+export async function authSchemaValidator(req: Request, res: Response, next: NextFunction) {
+
+    try {
+        await authSchema.validateAsync(req.body)
+        next();
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).send(error);
     }
 }
