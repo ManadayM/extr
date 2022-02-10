@@ -2,8 +2,9 @@ import cors from "cors";
 import helmet from "helmet";
 import express, { Application, Request, Response, NextFunction } from "express";
 import StatusCodes from "http-status-codes";
+import morgan from "morgan";
 
-import { requestLogger } from "./middlewares";
+import { logger } from "./services";
 import routes from "./routes";
 
 const app: Application = express();
@@ -18,7 +19,11 @@ app.use(helmet());
 /**
  * App middlewares
  */
-app.use(requestLogger);
+app.use(morgan('combined', {
+  stream: {
+    write: (msg: string) => logger.http(msg)
+  }
+}));
 
 /**
  * App routes
