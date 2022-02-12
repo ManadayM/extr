@@ -19,8 +19,5 @@ export const create = async (newExpense: BaseExpense): Promise<Expense> => {
   const query = 'INSERT INTO expenses (amount, category_id, user_id, expense_date) VALUES ($1, $2, $3, $4) RETURNING *;';
 
   const { rows } = await db.query(query, [amount, categoryId, userId, expenseDate]);
-
-  console.log(rows);
-
   return dbUtils.toCamelCase(rows)[0];
 };

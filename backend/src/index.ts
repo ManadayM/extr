@@ -3,6 +3,7 @@ import db from "./db";
 import app from "./app";
 
 import { DBConfig, ServerConfig } from "./types";
+import { logger } from "./services";
 
 const dbConfig: DBConfig = config.get('db');
 const serverConfig: ServerConfig = config.get('server');
@@ -10,7 +11,7 @@ const serverConfig: ServerConfig = config.get('server');
 // Start listening only when you've made to the database! ¯\_(ツ)_/¯
 app.on('dbConnected', () => {
   const PORT = serverConfig.port || 8080;
-  app.listen(PORT, () => console.log(`App is listening on port ${PORT}.`));
+  app.listen(PORT, () => logger.info(`App is listening on port ${PORT}.`));
 });
 
 db.connect({
@@ -20,5 +21,8 @@ db.connect({
   user: dbConfig.user,
   password: dbConfig.password
 })
-  .then(() => app.emit('dbConnected'))
+  .then(() => {
+    logger.info('Database connected.')
+    app.emit('dbConnected')
+  })
   .catch((err) => console.error(err));

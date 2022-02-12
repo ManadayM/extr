@@ -1,4 +1,5 @@
 import { Pool, PoolConfig } from "pg";
+import { logger } from "../services";
 
 class DB {
   _pool!: Pool;
@@ -17,6 +18,7 @@ class DB {
   }
 
   query(sql: string, params?: any) {
+    logger.debug(`DB Query: ${sql}`);
     return this._pool.query(sql, params);
   }
 }

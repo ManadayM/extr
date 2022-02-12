@@ -5,7 +5,7 @@ import { sign } from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
 import { BaseUser } from "../models";
-import { UserService } from "../services";
+import { logger, UserService } from "../services";
 
 const JWT_SECRET: string = config.get('server.jwtSecret');
 
@@ -21,6 +21,7 @@ export const register = async (req: Request, res: Response) => {
 
     return res.status(StatusCodes.CREATED).send({ token });
   } catch (error) {
+    logger.error(`register: ${error}`);
     return res.status(StatusCodes.BAD_REQUEST).send({ error: true, message: 'Bad request or user already exist.' });
   }
 };
@@ -42,6 +43,7 @@ export const login = async (req: Request, res: Response) => {
     const token = generateToken(user);
     return res.status(StatusCodes.OK).send({ token });
   } catch (error) {
+    logger.error(`login: ${error}`);
     return res.status(StatusCodes.BAD_REQUEST).send({ error: true, message: 'Bad request.' });
   }
 };

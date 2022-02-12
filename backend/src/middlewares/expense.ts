@@ -8,7 +8,6 @@ export async function addExpenseReqValidator(req: Request, res: Response, next: 
     await addExpenseSchema.validateAsync(req.body)
     next();
   } catch (error) {
-    console.error(`Error: ${error}`);
-    res.status(StatusCodes.BAD_REQUEST).send();
+    return res.status(StatusCodes.BAD_REQUEST).send(error);
   }
 }

@@ -31,6 +31,6 @@ export async function authSchemaValidator(req: Request, res: Response, next: Nex
         await authSchema.validateAsync(req.body)
         next();
     } catch (error) {
-        res.status(StatusCodes.BAD_REQUEST).send(error);
+        return res.status(StatusCodes.BAD_REQUEST).send(error);
     }
 }
