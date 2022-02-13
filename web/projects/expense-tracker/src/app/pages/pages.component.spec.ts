@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { PagesComponent } from './pages.component';
 
@@ -8,9 +10,9 @@ describe('PagesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PagesComponent ]
-    })
-    .compileComponents();
+      declarations: [PagesComponent],
+      imports: [MatToolbarModule, RouterTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {
