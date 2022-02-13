@@ -8,13 +8,13 @@ describe('AuthService', () => {
   let localStorageServiceSpy: jasmine.SpyObj<LocalStorageService>;
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('LocalStorageService', ['getItem']);
+    const storageSpy = jasmine.createSpyObj(LocalStorageService, ['getItem']);
 
     TestBed.configureTestingModule({
       providers: [
         {
           provide: LocalStorageService,
-          useValue: spy,
+          useValue: storageSpy,
         },
       ],
     });
@@ -38,7 +38,7 @@ describe('AuthService', () => {
         .toBeTrue();
 
       expect(localStorageServiceSpy.getItem.calls.count())
-        .withContext('localStorage spy methods called once')
+        .withContext('localStorage spy method called once')
         .toBe(1);
 
       expect(
