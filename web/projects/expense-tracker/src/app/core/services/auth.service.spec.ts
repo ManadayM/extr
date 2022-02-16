@@ -1,27 +1,13 @@
-import { TestBed } from '@angular/core/testing';
-import { LocalStorageService } from '.';
-
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let authService: AuthService;
-  let localStorageServiceSpy: jasmine.SpyObj<LocalStorageService>;
+  let mockLocalStorageService: jasmine.SpyObj<any>;
 
   beforeEach(() => {
-    const storageSpy = jasmine.createSpyObj(LocalStorageService, ['getItem']);
+    mockLocalStorageService = jasmine.createSpyObj(['getItem']);
 
-    TestBed.configureTestingModule({
-      providers: [
-        {
-          provide: LocalStorageService,
-          useValue: storageSpy,
-        },
-      ],
-    });
-    authService = TestBed.inject(AuthService);
-    localStorageServiceSpy = TestBed.inject(
-      LocalStorageService
-    ) as jasmine.SpyObj<LocalStorageService>;
+    authService = new AuthService(mockLocalStorageService);
   });
 
   it('should be created', () => {
@@ -29,72 +15,32 @@ describe('AuthService', () => {
   });
 
   describe('loggedIn', () => {
-    it('should return true if token is available in local storage', () => {
-      let mockedTokenValue = 'abc';
-      localStorageServiceSpy.getItem.and.returnValue(mockedTokenValue);
+    it('should return true if token is available in the local storage', () => {
+      let mockTokenValue = 'abc';
+      mockLocalStorageService.getItem.and.returnValue(mockTokenValue);
 
-      expect(authService.loggedIn())
-        .withContext('Auth Service -> loggedIn returned true')
-        .toBeTrue();
-
-      expect(localStorageServiceSpy.getItem.calls.count())
-        .withContext('localStorage spy method called once')
-        .toBe(1);
-
-      expect(
-        localStorageServiceSpy.getItem.calls.mostRecent().returnValue
-      ).toBe(mockedTokenValue);
+      expect(authService.loggedIn()).toBeTrue();
     });
 
-    it('should return false if token is not available in local storage', () => {
-      localStorageServiceSpy.getItem.and.returnValue(null);
+    it('should return false if token is not available in the local storage', () => {
+      mockLocalStorageService.getItem.and.returnValue(null);
 
-      expect(authService.loggedIn())
-        .withContext('Auth Service -> loggedIn returned false')
-        .toBeFalse();
-
-      expect(localStorageServiceSpy.getItem.calls.count())
-        .withContext('localStorage spy methods called once')
-        .toBe(1);
-
-      expect(
-        localStorageServiceSpy.getItem.calls.mostRecent().returnValue
-      ).toBe(null);
+      expect(authService.loggedIn()).toBeFalse();
     });
   });
 
   describe('getToken', () => {
     it('should return token if token is available in local storage', () => {
-      let mockedTokenValue = 'abc';
-      localStorageServiceSpy.getItem.and.returnValue(mockedTokenValue);
+      let mockTokenValue = 'abc';
+      mockLocalStorageService.getItem.and.returnValue(mockTokenValue);
 
-      expect(authService.getToken())
-        .withContext('Auth Service -> getToken returned token from storage')
-        .toEqual(mockedTokenValue);
-
-      expect(localStorageServiceSpy.getItem.calls.count())
-        .withContext('localstorage spy methods called once')
-        .toBe(1);
-
-      expect(
-        localStorageServiceSpy.getItem.calls.mostRecent().returnValue
-      ).toBe(mockedTokenValue);
+      expect(authService.getToken()).toEqual(mockTokenValue);
     });
 
     it('should return empty string if token is not available in local storage', () => {
-      localStorageServiceSpy.getItem.and.returnValue(null);
+      mockLocalStorageService.getItem.and.returnValue(null);
 
-      expect(authService.getToken())
-        .withContext('Auth Service -> getToken returned empty string')
-        .toBe('');
-
-      expect(localStorageServiceSpy.getItem.calls.count())
-        .withContext('localstorage spy methods called once')
-        .toBe(1);
-
-      expect(
-        localStorageServiceSpy.getItem.calls.mostRecent().returnValue
-      ).toBe(null);
+      expect(authService.getToken()).toBe('');
     });
   });
 

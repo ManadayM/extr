@@ -19,11 +19,11 @@ export class LocalStorageService {
     this.localStorage = localStorage;
   }
 
-  getItem(key: string): JSON | string | null {
+  getItem(key: string): object | string | null {
     return JSON.parse(this.localStorage.getItem(key) as string);
   }
 
-  setItem(key: string, data: string | JSON): void {
+  setItem(key: string, data: string | object): void {
     this.localStorage.setItem(key, JSON.stringify(data));
   }
 

@@ -9,13 +9,15 @@ export class AuthService {
 
   private JWT_TOKEN = 'extrJWT';
 
-  constructor(private localStorage: LocalStorageService) { }
+  constructor(
+    private localStorage: LocalStorageService
+  ) { }
 
-  loggedIn() {
+  loggedIn(): boolean {
     return !!this.localStorage.getItem(this.JWT_TOKEN);
   }
 
-  getToken() {
-    return this.localStorage.getItem(this.JWT_TOKEN) || '';
+  getToken(): string {
+    return (this.localStorage.getItem(this.JWT_TOKEN) as string) || "";
   }
 }
