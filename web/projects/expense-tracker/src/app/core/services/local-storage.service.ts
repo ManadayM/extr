@@ -19,12 +19,12 @@ export class LocalStorageService {
     this.localStorage = localStorage;
   }
 
-  getItem(key: string): object | string | null {
-    return JSON.parse(this.localStorage.getItem(key) as string);
+  getItem(key: string): string | null {
+    return this.localStorage.getItem(key);
   }
 
-  setItem(key: string, data: string | object): void {
-    this.localStorage.setItem(key, JSON.stringify(data));
+  setItem(key: string, data: string): void {
+    this.localStorage.setItem(key, data);
   }
 
   removeItem(key: string): void {
