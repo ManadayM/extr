@@ -1,8 +1,8 @@
-import { hash } from "bcrypt";
+import { hash } from 'bcrypt';
 
-import { BaseUser, User } from "@models";
-import { dbUtils } from "@utils";
-import db from "@db";
+import { BaseUser, User } from '@models';
+import { dbUtils } from '@utils';
+import db from '@db';
 
 export const findByEmail = async (email: string): Promise<User | null> => {
   const query = 'SELECT * FROM users WHERE email = $1;';

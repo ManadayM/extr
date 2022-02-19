@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import baseRouter from "./base.routes";
+import baseRouter from './base.routes';
 
 const routes = Router();
 

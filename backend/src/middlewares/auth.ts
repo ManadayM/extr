@@ -1,9 +1,9 @@
-import config from "config";
-import { NextFunction, Request, Response } from "express";
-import StatusCodes from "http-status-codes";
-import { verify } from "jsonwebtoken";
+import config from 'config';
+import { NextFunction, Request, Response } from 'express';
+import StatusCodes from 'http-status-codes';
+import { verify } from 'jsonwebtoken';
 
-import { authSchema } from "@schemas";
+import { authSchema } from '@schemas';
 
 const JWT_SECRET: string = config.get('server.jwtSecret');
 

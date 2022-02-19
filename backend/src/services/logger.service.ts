@@ -1,5 +1,5 @@
-import { createLogger, transports, format } from "winston";
-import config from "config";
+import { createLogger, transports, format } from 'winston';
+import config from 'config';
 
 const LOG_LEVEL: string = config.get('server.logLevel');
 

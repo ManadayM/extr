@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 export const addExpenseSchema = Joi.object({
   amount: Joi.number().greater(0).positive().required(),

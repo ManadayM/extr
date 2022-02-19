@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import { authorize } from "@middlewares";
-import expensesRouter from "./expense.routes";
-import authRouter from "./auth.routes";
+import { authorize } from '@middlewares';
+import expensesRouter from './expense.routes';
+import authRouter from './auth.routes';
 
 const baseRouter = Router();
 baseRouter.use('/expenses', authorize, expensesRouter);

@@ -1,5 +1,5 @@
-import { Pool, PoolConfig } from "pg";
-import { logger } from "@services";
+import { Pool, PoolConfig } from 'pg';
+import { logger } from '@services';
 
 class DB {
   _pool!: Pool;

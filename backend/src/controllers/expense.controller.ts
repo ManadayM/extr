@@ -1,8 +1,8 @@
-import { Response } from "express";
-import StatusCodes from "http-status-codes";
+import { Response } from 'express';
+import StatusCodes from 'http-status-codes';
 
-import { logger, ExpenseService } from "@services";
-import { BaseExpense } from "@models";
+import { logger, ExpenseService } from '@services';
+import { BaseExpense } from '@models';
 
 export const addExpense = async (req: any, res: Response) => {
   // { amount: 10.76, categoryId: 10, userId: 23, expenseDate: '2022-01-22' }

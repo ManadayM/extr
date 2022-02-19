@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { addExpense, getAllExpenses } from "@controllers";
-import { addExpenseReqValidator } from "@middlewares";
+import { Router } from 'express';
+import { addExpense, getAllExpenses } from '@controllers';
+import { addExpenseReqValidator } from '@middlewares';
 
 const expensesRouter = Router();
 
