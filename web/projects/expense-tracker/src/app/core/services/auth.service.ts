@@ -18,6 +18,6 @@ export class AuthService {
   }
 
   getToken(): string {
-    return (this.localStorage.getItem(this.JWT_TOKEN) as string) || "";
+    return (this.localStorage.getItem(this.JWT_TOKEN) as string) || '';
   }
 }

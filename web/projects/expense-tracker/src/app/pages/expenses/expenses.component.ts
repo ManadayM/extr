@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ExpenseService } from '@extr/core';
-import { SubSink } from "subsink";
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'xtr-expenses',

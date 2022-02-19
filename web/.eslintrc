@@ -14,6 +14,14 @@
         "args": "after-used",
         "ignoreRestSiblings": true
       }
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
     ]
   }
 }

@@ -19,7 +19,7 @@ export class ExtrHttpInterceptor implements HttpInterceptor {
     if (this.authService.loggedIn()) {
       request = request.clone({
         setHeaders: {
-          "x-access-token": this.authService.getToken() as string
+          'x-access-token': this.authService.getToken() as string
         }
       });
     }
