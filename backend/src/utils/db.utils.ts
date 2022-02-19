@@ -4,7 +4,7 @@ export const toCamelCase = (rows: any) => {
 
     const replaced: Record<string, any> = {};
 
-    for (let key in row) {
+    for (const key in row) {
       const camelCase = key.replace(/([-_][a-z])/gi, ($1) =>
         $1.toUpperCase().replace('_', '')
       );
@@ -14,4 +14,4 @@ export const toCamelCase = (rows: any) => {
 
     return replaced;
   });
-};
+}
