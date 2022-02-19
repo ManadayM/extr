@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ExtrHttpInterceptor } from './core';
+import { ExtrHttpInterceptor } from '@extr/core';
 
 @NgModule({
   declarations: [

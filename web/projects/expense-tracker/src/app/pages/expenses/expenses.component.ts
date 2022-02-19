@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ExpenseService } from '../../core';
+import { ExpenseService } from '@extr/core';
 import { SubSink } from "subsink";
 
 @Component({

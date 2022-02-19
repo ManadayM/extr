@@ -21,7 +21,13 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@extr/auth": ["./projects/expense-tracker/src/app/auth/auth.module"],
+      "@extr/core": ["./projects/expense-tracker/src/app/core"],
+      "@extr/shared": ["./projects/expense-tracker/src/app/shared"],
+      "@extr/env": ["./projects/expense-tracker/src/environments/environment.ts"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
