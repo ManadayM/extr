@@ -16,7 +16,7 @@ describe('AuthService', () => {
 
   describe('loggedIn', () => {
     it('should return true if token is available in the local storage', () => {
-      let mockTokenValue = 'abc';
+      const mockTokenValue = 'abc';
       mockLocalStorageService.getItem.and.returnValue(mockTokenValue);
 
       expect(authService.loggedIn()).toBeTrue();
@@ -31,7 +31,7 @@ describe('AuthService', () => {
 
   describe('getToken', () => {
     it('should return token if token is available in local storage', () => {
-      let mockTokenValue = 'abc';
+      const mockTokenValue = 'abc';
       mockLocalStorageService.getItem.and.returnValue(mockTokenValue);
 
       expect(authService.getToken()).toEqual(mockTokenValue);

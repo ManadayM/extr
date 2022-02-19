@@ -48,7 +48,7 @@ describe('ExtrHttpInterceptor', () => {
   });
 
   it('should add an access token header if user is logged in', () => {
-    let mockedTokenValue = 'mockedToken';
+    const mockedTokenValue = 'mockedToken';
     authServiceSpy.loggedIn.and.returnValue(true);
     authServiceSpy.getToken.and.returnValue(mockedTokenValue);
 

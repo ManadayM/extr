@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
@@ -6,7 +5,6 @@ import { ExpenseService } from './expense.service';
 
 describe('ExpenseService', () => {
   let service: ExpenseService;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
@@ -15,7 +13,6 @@ describe('ExpenseService', () => {
       providers: [],
     });
 
-    httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(ExpenseService);
   });

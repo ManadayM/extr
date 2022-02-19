@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,19 +25,12 @@ export class ExpenseService {
     return this.http.get(this.apiUrl)
       .pipe(
         map((data: any) => {
-          return data.reduce((result: any, item: any) => {
+          return data.reduce((result: any, expenseRecord: any) => {
+            const { expenseDate, ...rest } = expenseRecord;
 
-            if (!result[item.expenseDate]) {
-              result[item.expenseDate] = {
-                expenseDate: item.expenseDate,
-                total: item.amount,
-                expenses: [item]
-              }
-            }
-            else {
-              result[item.expenseDate].total += item.amount;
-              result[item.expenseDate].expenses.push(item);
-            }
+            result[expenseDate] = result[expenseDate] || { expenseDate, totalAmount: 0, expenses: [] };
+            result[expenseDate].totalAmount += expenseRecord.amount;
+            result[expenseDate].expenses.push(rest);
 
             return result;
           }, {})

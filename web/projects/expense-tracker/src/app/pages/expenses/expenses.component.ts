@@ -16,7 +16,7 @@ export class ExpensesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.sink = this.expenseService.getExpenses().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
     });
   }
 
