@@ -9,7 +9,7 @@
     "start": "NODE_ENV=development ./scripts/start.sh",
     "prod": "NODE_ENV=production ./scripts/start.sh",
     "watch:js": "tsc --watch",
-    "lint": "eslint src/**/*.ts",
+    "lint": "eslint src/**/*.ts --cache --cache-strategy content",
     "format": "eslint src/**/*.ts --fix"
   },
   "keywords": [],
