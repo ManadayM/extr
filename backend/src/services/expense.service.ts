@@ -1,6 +1,6 @@
-import { BaseExpense, Expense } from "../models";
-import { dbUtils } from "../utils";
-import db from "../db";
+import { BaseExpense, Expense } from "@models";
+import { dbUtils } from "@utils";
+import db from "@db";
 
 export const findAll = async (userId: number): Promise<Expense[]> => {
   const query = `

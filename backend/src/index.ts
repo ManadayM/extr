@@ -1,10 +1,14 @@
+// Register module-alias so that we can use alias paths in the code instead of relative imports
+import "module-alias/register";
+
 import config from "config";
-import db from "./db";
+import { Server } from "http";
+
 import app from "./app";
 
-import { DBConfig, ServerConfig } from "./types";
-import { logger } from "./services";
-import { Server } from "http";
+import db from "@db";
+import { DBConfig, ServerConfig } from "@custom-types";
+import { logger } from "@services";
 
 const dbConfig: DBConfig = config.get("db");
 const serverConfig: ServerConfig = config.get("server");

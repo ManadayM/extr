@@ -22,6 +22,7 @@
     "http-status-codes": "2.2.0",
     "joi": "17.6.0",
     "jsonwebtoken": "8.5.1",
+    "module-alias": "2.2.2",
     "morgan": "1.10.0",
     "pg": "8.7.1",
     "winston": "3.5.1"
@@ -32,11 +33,23 @@
     "@types/cors": "2.8.12",
     "@types/express": "4.17.13",
     "@types/jsonwebtoken": "8.5.8",
+    "@types/module-alias": "2.0.1",
     "@types/morgan": "1.9.3",
     "@types/node": "17.0.12",
     "@types/pg": "8.6.4",
     "node-pg-migrate": "6.2.1",
     "nodemon": "2.0.15",
     "typescript": "4.5.5"
+  },
+  "_moduleAliases": {
+    "@controllers": "./dist/controllers",
+    "@db": "./dist/db",
+    "@middlewares": "./dist/middlewares",
+    "@models": "./dist/models",
+    "@routes": "./dist/routes",
+    "@schemas": "./dist/schemas",
+    "@services": "./dist/services",
+    "@custom-types": "./dist/custom-types",
+    "@utils": "./dist/utils"
   }
 }

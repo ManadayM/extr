@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { addExpenseSchema } from "../schemas";
+import { addExpenseSchema } from "@schemas";
 
 export async function addExpenseReqValidator(req: Request, res: Response, next: NextFunction) {
 

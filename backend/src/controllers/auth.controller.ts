@@ -4,8 +4,8 @@ import { Request, Response } from "express";
 import { sign } from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
-import { BaseUser } from "../models";
-import { logger, UserService } from "../services";
+import { BaseUser } from "@models";
+import { logger, UserService } from "@services";
 
 const JWT_SECRET: string = config.get('server.jwtSecret');
 

@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import expensesRouter from './expense.routes';
-import authRouter from './auth.routes';
-import { authorize } from "../middlewares";
+import { authorize } from "@middlewares";
+import expensesRouter from "./expense.routes";
+import authRouter from "./auth.routes";
 
-const routes = Router();
-routes.use('/expenses', authorize, expensesRouter);
-routes.use('/auth', authRouter);
+const baseRouter = Router();
+baseRouter.use('/expenses', authorize, expensesRouter);
+baseRouter.use('/auth', authRouter);
 
-export default routes;
+export default baseRouter;

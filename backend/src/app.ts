@@ -4,8 +4,8 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import StatusCodes from "http-status-codes";
 import morgan from "morgan";
 
-import { logger } from "./services";
-import routes from "./routes";
+import { logger } from "@services";
+import routes from "@routes";
 
 const app: Application = express();
 
