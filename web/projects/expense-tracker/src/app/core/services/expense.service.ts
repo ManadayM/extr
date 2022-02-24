@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { IDayExpenseRecord, IExpense } from '@extr/core';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +24,10 @@ export class ExpenseService {
    * Transformed Response
    * [ { "expenseDate": "2022-02-07", "total": 950, "expenses": [ {  } ] }, ...]
    */
-  getExpenses() {
-    return this.http.get(this.apiUrl)
+  getExpenses(): Observable<IDayExpenseRecord[]> {
+    return this.http.get<IExpense[]>(this.apiUrl)
       .pipe(
-        map((data: any) => {
+        map((data: IExpense[]) => {
           return data.reduce((result: any, expenseRecord: any) => {
             const { expenseDate, ...rest } = expenseRecord;
 
@@ -36,7 +39,6 @@ export class ExpenseService {
           }, {})
         }),
 
-        //
         map(data => Object.values(data)),
 
         // tap((res: any) => console.log(res)),

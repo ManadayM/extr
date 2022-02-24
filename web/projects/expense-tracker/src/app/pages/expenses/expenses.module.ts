@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
 
 import { ExpensesRoutingModule } from './expenses-routing.module';
 import { ExpensesComponent } from './expenses.component';
@@ -15,7 +17,9 @@ import { ExpenseRecordComponent } from './expense-record/expense-record.componen
   ],
   imports: [
     CommonModule,
-    ExpensesRoutingModule
+    ExpensesRoutingModule,
+    MatExpansionModule,
+    MatListModule,
   ]
 })
 export class ExpensesModule { }

@@ -12,7 +12,8 @@
       "error",
       {
         "args": "after-used",
-        "ignoreRestSiblings": true
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
       }
     ],
     "quotes": [

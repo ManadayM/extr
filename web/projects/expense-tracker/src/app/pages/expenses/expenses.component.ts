@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ExpenseService } from '@extr/core';
+import { ExpenseService, IDayExpenseRecord } from '@extr/core';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -10,14 +10,17 @@ import { SubSink } from 'subsink';
 export class ExpensesComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
 
+  dayRecords!: IDayExpenseRecord[];
+
   constructor(
     private expenseService: ExpenseService
   ) { }
 
   ngOnInit(): void {
-    this.subs.sink = this.expenseService.getExpenses().subscribe((res: any) => {
-      console.log(res);
-    });
+    this.subs.sink = this.expenseService.getExpenses()
+      .subscribe((res: IDayExpenseRecord[]) => {
+        this.dayRecords = res;
+      });
   }
 
   ngOnDestroy(): void {

@@ -1,1 +1,20 @@
-<p>day-record works!</p>
+<mat-expansion-panel expanded>
+  <!-- Header -->
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <div class="flex w-full justify-between">
+        <span>{{ data.expenseDate }}</span>
+        <span>{{ data.totalAmount }}</span>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <!-- Expenses -->
+  <!-- <ng-container> -->
+  <mat-list>
+
+    <xtr-expense-record [data]="expenseRecord" *ngFor="let expenseRecord of data.expenses">
+    </xtr-expense-record>
+  </mat-list>
+  <!-- </ng-container> -->
+</mat-expansion-panel>

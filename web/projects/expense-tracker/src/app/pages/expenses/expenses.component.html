@@ -1,1 +1,5 @@
-<p>expenses works!</p>
+<mat-accordion class="example-headers-align" multi>
+  <ng-container *ngFor="let dayRecord of dayRecords">
+    <xtr-day-record [data]="dayRecord"></xtr-day-record>
+  </ng-container>
+</mat-accordion>
