@@ -1,0 +1,74 @@
+@use 'sass:map';
+
+// Mixin to generate CSS Custom Props related to theme colors based on mixin arguments
+@mixin theme-props($primary-palette, $primary-hues, $accent-palette, $accent-hues, $warn-palette, $warn-hues) {
+  // Hues for the primary color i.e. 100, 200, ... 900 etc.
+  $primary-hue: map.get($primary-hues, "default");
+  $primary-hue-lighter: map.get($primary-hues, "lighter");
+  $primary-hue-darker: map.get($primary-hues, "darker");
+
+  // Primary colors (Background colors) - "default", "lighter", and "darker"
+  $primary-color: map.get($primary-palette, $primary-hue);
+  $primary-color-lighter: map.get($primary-palette, $primary-hue-lighter);
+  $primary-color-darker: map.get($primary-palette, $primary-hue-darker);
+
+  // Primary text colors (Relevant foreground colors for the "primary" background color)
+  $primary-color-text: map.get($primary-palette, "contrast", $primary-hue);
+  $primary-color-lighter-text: map.get($primary-palette, "contrast", $primary-hue-lighter);
+  $primary-color-darker-text: map.get($primary-palette, "contrast", $primary-hue-darker);
+
+  // Hues for the accent color i.e. 100, 200, ... 900 etc.
+  $accent-hue: map.get($accent-hues, "default");
+  $accent-hue-lighter: map.get($accent-hues, "lighter");
+  $accent-hue-darker: map.get($accent-hues, "darker");
+
+  // Accent colors (Background colors) - "default", "lighter", and "darker"
+  $accent-color: map.get($accent-palette, $accent-hue);
+  $accent-color-lighter: map.get($accent-palette, $accent-hue-lighter);
+  $accent-color-darker: map.get($accent-palette, $accent-hue-darker);
+
+  // Accent text colors (Relevant foreground colors for the "accent" background color)
+  $accent-color-text: map.get($accent-palette, "contrast", $accent-hue);
+  $accent-color-lighter-text: map.get($accent-palette, "contrast", $accent-hue-lighter);
+  $accent-color-darker-text: map.get($accent-palette, "contrast", $accent-hue-darker);
+
+  // Hues for the warn color i.e. 100, 200, ... 900 etc.
+  $warn-hue: map.get($warn-hues, "default");
+  $warn-hue-lighter: map.get($warn-hues, "lighter");
+
+  // Accent colors (Background colors) - "default", "lighter", and "darker"
+  $warn-color: map.get($warn-palette, $warn-hue);
+  $warn-color-lighter: map.get($warn-palette, $warn-hue-lighter);
+
+  // Accent text colors (Relevant foreground colors for the "accent" background color)
+  $warn-color-text: map.get($warn-palette, "contrast", $warn-hue);
+  $warn-color-lighter-text: map.get($warn-palette, "contrast", $warn-hue-lighter);
+
+  /******************************************************************************************
+   *         Expose all derieved theme color values on :root CSS Custom Properties.         *
+   ******************************************************************************************/
+
+  --color-primary: #{$primary-color};
+  --color-primary-contrast: #{$primary-color-text};
+
+  --color-primary-lighter: #{$primary-color-lighter};
+  --color-primary-ligther-contrast: #{$primary-color-lighter-text};
+
+  --color-primary-darker: #{$primary-color-darker};
+  --color-primary-darker-contrast: #{$primary-color-darker-text};
+
+  --color-accent: #{$accent-color};
+  --color-accent-contrast: #{$accent-color-text};
+
+  --color-accent-lighter: #{$accent-color-lighter};
+  --color-accent-ligther-contrast: #{$accent-color-lighter-text};
+
+  --color-accent-darker: #{$accent-color-darker};
+  --color-accent-darker-contrast: #{$accent-color-darker-text};
+
+  --color-warn: #{$warn-color};
+  --color-warn-contrast: #{$warn-color-text};
+
+  --color-warn-lighter: #{$warn-color-lighter};
+  --color-warn-ligther-contrast: #{$warn-color-lighter-text};
+}

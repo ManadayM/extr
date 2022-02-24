@@ -1,0 +1,148 @@
+@use 'sass:map';
+@use './mixins' as *;
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+/**********************************************************
+ *                    DECLARATIONS                        *
+ **********************************************************/
+
+// Light color palettes
+$light-primary-palette: mat.$indigo-palette;
+$light-accent-palette: mat.$pink-palette;
+$light-warn-palette: mat.$red-palette;
+
+// Dark color palettes
+$dark-primary-palette: mat.$indigo-palette;
+$dark-accent-palette: mat.$pink-palette;
+$dark-warn-palette: mat.$red-palette;
+
+// Light & Dark hues
+// =====================================================================================
+// If different hues are required for "light" and "dark" variants then
+// assign spcific values to `$light-primary-hues` and `$dark-primary-hues` variables
+// instead the current shared variable `$primary-hues`.
+// The same applies to `accent` and `warn` color variables as well.
+// =====================================================================================
+
+$primary-hues: (
+  "default": 500,
+  "lighter": 100,
+  "darker": 700,
+);
+$light-primary-hues: $primary-hues;
+$dark-primary-hues: $primary-hues;
+
+$accent-hues: (
+  "default": A200,
+  "lighter": A100,
+  "darker": A400,
+);
+$light-accent-hues: $accent-hues;
+$dark-accent-hues: $accent-hues;
+
+$warn-hues: (
+  "default": 500,
+  "lighter": 200,
+);
+$light-warn-hues: $warn-hues;
+$dark-warn-hues: $warn-hues;
+
+/**********************************************************
+ *        REGISTER WITH ANGULAR MATERIAL SYSTEM           *
+ **********************************************************/
+
+// LIGHT PALETTE
+$light-primary-mat-palette: mat.define-palette(
+  $light-primary-palette,
+  map.get($light-primary-hues, "default"),
+  map.get($light-primary-hues, "lighter"),
+  map.get($light-primary-hues, "darker")
+);
+
+$light-accent-mat-palette: mat.define-palette(
+  $light-accent-palette,
+  map.get($light-accent-hues, "default"),
+  map.get($light-accent-hues, "lighter"),
+  map.get($light-accent-hues, "darker")
+);
+
+$light-warn-mat-palette: mat.define-palette(
+  $light-warn-palette,
+  map.get($light-warn-hues, "default"),
+  map.get($light-warn-hues, "lighter")
+);
+
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $light-primary-mat-palette,
+      accent: $light-accent-mat-palette,
+      warn: $light-warn-mat-palette,
+    ),
+  )
+);
+
+// DARK PALETTE
+$dark-primary-mat-palette: mat.define-palette(
+  $dark-primary-palette,
+  map.get($dark-primary-hues, "default"),
+  map.get($dark-primary-hues, "lighter"),
+  map.get($dark-primary-hues, "darker")
+);
+
+$dark-accent-mat-palette: mat.define-palette(
+  $dark-accent-palette,
+  map.get($dark-accent-hues, "default"),
+  map.get($dark-accent-hues, "lighter"),
+  map.get($dark-accent-hues, "darker")
+);
+
+$dark-warn-mat-palette: mat.define-palette(
+  $dark-warn-palette,
+  map.get($dark-warn-hues, "default"),
+  map.get($dark-warn-hues, "lighter")
+);
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-primary-mat-palette,
+      accent: $dark-accent-mat-palette,
+      warn: $dark-warn-mat-palette,
+    ),
+  )
+);
+
+:root {
+  @include theme-props(
+    $light-primary-palette,
+    $light-primary-hues,
+    $light-accent-palette,
+    $light-accent-hues,
+    $light-warn-palette,
+    $light-warn-hues
+  );
+
+  // ~@angular/material/core/theming/_palette.scss
+  --background-color: #{map.get(mat.$light-theme-background-palette, "background")};
+  --foreground-color: #{map.get(mat.$light-theme-foreground-palette, "text")};
+  --card-bg-color: #{map.get(mat.$light-theme-background-palette, "card")};
+}
+
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+// @include mat.all-component-themes($expense-tracker-theme);
+@include mat.core-theme($light-theme);
+@include mat.toolbar-theme($light-theme);
+@include mat.expansion-theme($light-theme);
+@include mat.list-theme($light-theme);
