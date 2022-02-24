@@ -4,7 +4,7 @@ import db from '@db';
 
 export const findAll = async (userId: number): Promise<Expense[]> => {
   const query = `
-    SELECT amount, categories.name, TO_CHAR(expense_date, 'yyyy-mm-dd') as expense_date 
+    SELECT expenses.id, amount, categories.name, TO_CHAR(expense_date, 'yyyy-mm-dd') as expense_date
     FROM expenses
     JOIN categories ON categories.id = expenses.category_id
     WHERE user_id = $1;
