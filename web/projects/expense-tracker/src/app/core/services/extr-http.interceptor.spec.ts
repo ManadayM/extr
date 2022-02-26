@@ -5,11 +5,40 @@ import { ExtrHttpInterceptor } from './extr-http.interceptor';
 import { ExpenseService } from '.';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { IExpense } from '..';
 
 describe('ExtrHttpInterceptor', () => {
   let expenseService: ExpenseService;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   let httpMock: HttpTestingController;
+  const today = new Date();
+
+  const testData: Array<IExpense> = [
+    {
+      amount: 10,
+      categoryName: 'Fruits',
+      expenseDate: today,
+      categoryId: 1,
+      id: 1,
+      details: 'Mango',
+    },
+    {
+      amount: 110,
+      categoryName: 'Fruits',
+      expenseDate: today,
+      categoryId: 1,
+      id: 2,
+      details: 'Dragon Fruit',
+    },
+    {
+      amount: 100,
+      categoryName: 'vegetables',
+      expenseDate: today,
+      categoryId: 2,
+      id: 3,
+      details: 'Potato',
+    },
+  ];
 
   beforeEach(() => {
     const authSpy = jasmine.createSpyObj(AuthService, ['loggedIn', 'getToken']);
@@ -56,7 +85,7 @@ describe('ExtrHttpInterceptor', () => {
       expect(res).toBeTruthy();
     });
 
-    const httpRequest = httpMock.expectOne(`http://localhost:3000/expenses`);
+    const httpRequest = httpMock.expectOne(`http://localhost:3000/api/expenses`);
     expect(httpRequest.request.headers.has('x-access-token'))
       .withContext('x-access-token is present')
       .toEqual(true);
@@ -65,7 +94,7 @@ describe('ExtrHttpInterceptor', () => {
     // until then the assertion inside the subscript block will not be executed
     // As we are testing the interceptor service,
     //  we are not concerned about the response of the request so returning blank object
-    httpRequest.flush({});
+    httpRequest.flush(testData);
 
     expect(authServiceSpy.loggedIn.calls.count())
       .withContext('AuthService spy method loggedIn called once')
@@ -87,10 +116,10 @@ describe('ExtrHttpInterceptor', () => {
       expect(res).toBeTruthy();
     });
 
-    const httpRequest = httpMock.expectOne(`http://localhost:3000/expenses`);
+    const httpRequest = httpMock.expectOne(`http://localhost:3000/api/expenses`);
     expect(httpRequest.request.headers.has('x-access-token')).not.toEqual(true);
 
-    httpRequest.flush({});
+    httpRequest.flush(testData);
 
     expect(authServiceSpy.loggedIn.calls.count())
       .withContext('AuthService spy method loggedIn called once')

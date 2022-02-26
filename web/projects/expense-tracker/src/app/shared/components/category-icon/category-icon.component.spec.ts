@@ -16,10 +16,15 @@ describe('CategoryIconComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CategoryIconComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    component.icon = 'vegetables';
+    fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  it('should throw an error if icon is not provided', () => {
+    expect(() => fixture.detectChanges()).toThrowError('Required input [icon] not provided.');
   });
 });

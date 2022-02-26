@@ -1,5 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { IExpense } from '..';
 
 import { ExpenseService } from './expense.service';
 
@@ -23,11 +24,32 @@ describe('ExpenseService', () => {
 
   describe('getExpenses', () => {
     it('should get expenses list', () => {
-      const testData = [
+      const today = new Date();
+
+      const testData: Array<IExpense> = [
         {
           amount: 10,
-          name: 'Fruits',
-          expenseDate: '2022-01-28T18:30:00.000Z',
+          categoryName: 'Fruits',
+          expenseDate: today,
+          categoryId: 1,
+          id: 1,
+          details: 'Mango'
+        },
+        {
+          amount: 110,
+          categoryName: 'Fruits',
+          expenseDate: today,
+          categoryId: 1,
+          id: 2,
+          details: 'Dragon Fruit'
+        },
+        {
+          amount: 100,
+          categoryName: 'vegetables',
+          expenseDate: today,
+          categoryId: 2,
+          id: 3,
+          details: 'Potato'
         },
       ];
 
@@ -35,7 +57,7 @@ describe('ExpenseService', () => {
         expect(res).toBeTruthy();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:3000/expenses');
+      const req = httpTestingController.expectOne('http://localhost:3000/api/expenses');
 
       expect(req.request.method).toEqual('GET');
 
