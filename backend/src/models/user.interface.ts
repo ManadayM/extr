@@ -1,9 +1,9 @@
-export interface BaseUser {
+export interface IBaseUser {
   email: string;
   password: string;
 }
 
-export interface User extends BaseUser {
+export interface IUser extends IBaseUser {
   id: number;
   username: string;
   createdAt: Date;

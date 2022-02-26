@@ -1,10 +1,10 @@
 import { hash } from 'bcrypt';
 
-import { BaseUser, User } from '@models';
+import { IBaseUser, IUser } from '@models';
 import { dbUtils } from '@utils';
 import db from '@db';
 
-export const findByEmail = async (email: string): Promise<User | null> => {
+export const findByEmail = async (email: string): Promise<IUser | null> => {
   const query = 'SELECT * FROM users WHERE email = $1;';
 
   try {
@@ -20,12 +20,12 @@ export const findByEmail = async (email: string): Promise<User | null> => {
   }
 }
 
-export const create = async (newUser: BaseUser): Promise<User> => {
+export const create = async (newUser: IBaseUser): Promise<IUser> => {
   const { email, password } = newUser;
   const user = await findByEmail(email);
 
   console.log('user: ', user);
-  
+
   if (user === null) {
     const hashedPassword = await hash(password, 10);
     console.log(hashedPassword);

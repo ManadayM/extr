@@ -4,17 +4,18 @@ import { Request, Response } from 'express';
 import { sign } from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
 
-import { BaseUser } from '@models';
+import { IBaseUser } from '@models';
 import { logger, UserService } from '@services';
 
 const JWT_SECRET: string = config.get('server.jwtSecret');
+const JWT_EXPIRES_IN: string = config.get('server.jwtExpiresIn');
 
 const generateToken = ({ id, email }: { id: number, email: string }) => {
-  return sign({ id, email }, JWT_SECRET, { expiresIn: '24h' });
+  return sign({ id, email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 };
 
 export const register = async (req: Request, res: Response) => {
-  const userRecord: BaseUser = req.body;
+  const userRecord: IBaseUser = req.body;
   try {
     const user = await UserService.create(userRecord);
     const token = generateToken(user);
@@ -27,7 +28,7 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  const userCredential: BaseUser = req.body;
+  const userCredential: IBaseUser = req.body;
 
   try {
     const user = await UserService.findByEmail(userCredential.email);
