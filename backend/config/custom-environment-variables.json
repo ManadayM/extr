@@ -10,6 +10,7 @@
     "logLevel": "LOG_LEVEL",
     "port": "APP_PORT",
     "jwtSecret": "JWT_SECRET",
+    "jwtExpiresIn": "JWT_EXPIRES_IN",
     "cors": {
       "origin": "CORS_ORIGIN",
       "methods": "CORS_METHODS",

@@ -1,5 +1,6 @@
 {
   "server": {
-    "logLevel": "trace"
+    "logLevel": "trace",
+    "jwtExpiresIn": "365d"
   }
 }
