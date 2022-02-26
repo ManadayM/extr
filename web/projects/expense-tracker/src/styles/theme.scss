@@ -87,6 +87,9 @@ $light-theme: mat.define-light-theme(
       accent: $light-accent-mat-palette,
       warn: $light-warn-mat-palette,
     ),
+    typography: mat.define-typography-config(
+      $font-family: 'Source Sans Pro',
+    )
   )
 );
 
@@ -118,6 +121,9 @@ $dark-theme: mat.define-dark-theme(
       accent: $dark-accent-mat-palette,
       warn: $dark-warn-mat-palette,
     ),
+    typography: mat.define-typography-config(
+      $font-family: 'Source Sans Pro',
+    )
   )
 );
 
@@ -146,3 +152,4 @@ $dark-theme: mat.define-dark-theme(
 @include mat.toolbar-theme($light-theme);
 @include mat.expansion-theme($light-theme);
 @include mat.list-theme($light-theme);
+@include mat.divider-theme($light-theme);
