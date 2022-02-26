@@ -1,6 +1,8 @@
 export interface IBaseExpense {
   amount: number;
-  name: string;
+  details?: string;
+  categoryId: number;
+  categoryName: string;
   expenseDate?: Date;
 }
 

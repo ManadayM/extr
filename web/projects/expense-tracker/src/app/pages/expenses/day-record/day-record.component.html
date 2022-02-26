@@ -2,17 +2,18 @@
   <!-- Header -->
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <div class="flex w-full justify-between">
-        <span>{{ data.expenseDate }}</span>
-        <span>{{ data.totalAmount }}</span>
+      <div class="flex w-full justify-between text-lg">
+        <span class="font-bold">{{ data.expenseDate | date:'dd MMM yyyy' }}</span>
+        <span class="font-bold">{{ data.totalAmount | number:'1.2-2' }}</span>
       </div>
     </mat-panel-title>
   </mat-expansion-panel-header>
 
+  <mat-divider></mat-divider>
+
   <!-- Expenses -->
   <!-- <ng-container> -->
   <mat-list>
-
     <xtr-expense-record [data]="expenseRecord" *ngFor="let expenseRecord of data.expenses">
     </xtr-expense-record>
   </mat-list>

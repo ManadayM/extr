@@ -1,6 +1,9 @@
 <mat-list-item>
-  <div class="w-full flex justify-between">
-    <span>{{data.name}}</span>
-    <span>{{data.amount}}</span>
+  <div class="w-full flex justify-between items-center">
+    <div class="flex justify-start items-center">
+      <xtr-category-icon [icon]="data.categoryName | lowercase"></xtr-category-icon>
+      <span class="ml-2">{{data.details}}</span>
+    </div>
+    <div>{{data.amount | number:'1.2-2'}}</div>
   </div>
 </mat-list-item>

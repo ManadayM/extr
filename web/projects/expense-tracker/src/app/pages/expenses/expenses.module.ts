@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { ExpensesRoutingModule } from './expenses-routing.module';
 import { ExpensesComponent } from './expenses.component';
 import { DayRecordComponent } from './day-record/day-record.component';
 import { ExpenseRecordComponent } from './expense-record/expense-record.component';
-
+import { CategoryIconModule } from '@extr/shared';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import { ExpenseRecordComponent } from './expense-record/expense-record.componen
     ExpensesRoutingModule,
     MatExpansionModule,
     MatListModule,
+    CategoryIconModule,
+    MatDividerModule,
   ]
 })
 export class ExpensesModule { }
