@@ -16,7 +16,7 @@ export class ExtrHttpInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    if (this.authService.loggedIn()) {
+    if (this.authService.isLoggedIn) {
       request = request.clone({
         setHeaders: {
           'x-access-token': this.authService.getToken() as string

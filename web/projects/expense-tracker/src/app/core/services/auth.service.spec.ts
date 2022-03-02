@@ -19,13 +19,13 @@ describe('AuthService', () => {
       const mockTokenValue = 'abc';
       mockLocalStorageService.getItem.and.returnValue(mockTokenValue);
 
-      expect(authService.loggedIn()).toBeTrue();
+      expect(authService.isLoggedIn).toBeTrue();
     });
 
     it('should return false if token is not available in the local storage', () => {
       mockLocalStorageService.getItem.and.returnValue(null);
 
-      expect(authService.loggedIn()).toBeFalse();
+      expect(authService.isLoggedIn).toBeFalse();
     });
   });
 

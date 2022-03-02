@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService, LocalStorageService } from '@extr/core';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'xtr-login',
@@ -8,13 +11,18 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class LoginComponent {
 
+  private subs = new SubSink();
+
   loginForm = this.fb.group({
-    userName: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   })
 
   constructor(
     private fb: FormBuilder,
+    private authService: AuthService,
+    private localStorage: LocalStorageService,
+    private router: Router
   ) { }
 
   onSubmit() {
@@ -22,7 +30,13 @@ export class LoginComponent {
       console.log('Invalid form');
       return;
     }
-    console.log(this.loginForm.value)
+
+    const { email, password } = this.loginForm.value;
+    this.subs.sink = this.authService
+      .login(email, password).subscribe((res: any) => {
+        this.localStorage.setItem(this.authService.loginTokenKey, res.token);
+        this.router.navigate(['/']);
+      });
   }
 
 }
