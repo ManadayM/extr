@@ -3,11 +3,17 @@ module.exports = {
   corePlugins: {
     preflight: false
   },
+  darkMode: 'class',
   content: [
     './projects/**/*.{html,ts}',
   ],
   theme: {
     extend: {
+      background: 'var(--background-color)',
+      card: 'var(--card-bg-color)',
+      current: 'currentColor',
+      foreground: 'var(--foreground-color)',
+      transparent: 'transparent',
       primary: {
         DEFAULT: 'var(--color-primary)',
         contrast: 'var(--color-primary-contrast)',
@@ -28,9 +34,6 @@ module.exports = {
         DEFAULT: 'var(--color-warn)',
         lighter: 'var(--color-warn-lighter)',
       },
-      background: 'var(--background-color)',
-      card: 'var(--card-bg-color)',
-      foreground: 'var(--foreground-color)',
       indigo: {
         '50': '#E8EAF6',
         '100': '#C5CAE9',

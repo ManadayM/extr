@@ -1,0 +1,24 @@
+<div class="flex w-full h-full justify-center items-center">
+  <div class="w-64 p-8 shadow-lg">
+    <h1 class="w-full text-center">Login</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="flex flex-col">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="Email" formControlName="userName">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit">Login</button>
+
+        <a mat-button class="mt-2" routerLink="/auth/register">Register</a>
+      </div>
+    </form>
+  </div>
+</div>
