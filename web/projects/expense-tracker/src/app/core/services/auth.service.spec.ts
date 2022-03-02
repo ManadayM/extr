@@ -1,13 +1,28 @@
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { LocalStorageService } from '.';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let authService: AuthService;
-  let mockLocalStorageService: jasmine.SpyObj<any>;
+  let mockLocalStorageService: jasmine.SpyObj<LocalStorageService>;
 
   beforeEach(() => {
-    mockLocalStorageService = jasmine.createSpyObj(['getItem']);
+    const storageServiceSpy = jasmine.createSpyObj(LocalStorageService, ['getItem']);
 
-    authService = new AuthService(mockLocalStorageService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [
+        AuthService,
+        {
+          provide: LocalStorageService,
+          useValue: storageServiceSpy,
+        },
+      ],
+    });
+
+    mockLocalStorageService = TestBed.inject(LocalStorageService) as jasmine.SpyObj<LocalStorageService>;
+    authService = TestBed.inject(AuthService);
   });
 
   it('should be created', () => {
@@ -43,5 +58,4 @@ describe('AuthService', () => {
       expect(authService.getToken()).toBe('');
     });
   });
-
 });

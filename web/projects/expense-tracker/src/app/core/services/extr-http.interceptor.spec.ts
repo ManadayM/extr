@@ -97,11 +97,11 @@ describe('ExtrHttpInterceptor', () => {
     httpRequest.flush(testData);
 
     expect(authServiceSpy.loggedIn.calls.count())
-      .withContext('AuthService spy method loggedIn called once')
+      .withContext('AuthService spy method loggedIn not called once')
       .toBe(1);
 
     expect(authServiceSpy.getToken.calls.count())
-      .withContext('AuthService spy method getToken called once')
+      .withContext('AuthService spy method getToken not called once')
       .toBe(1);
 
     expect(authServiceSpy.getToken.calls.mostRecent().returnValue)
