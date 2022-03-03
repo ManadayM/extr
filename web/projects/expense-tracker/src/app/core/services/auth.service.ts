@@ -9,6 +9,7 @@ import { LocalStorageService } from '.';
 export class AuthService {
 
   private loginUrl = `http://localhost:3000/api/auth/login`;
+  private registerUrl = `http://localhost:3000/api/auth/register`;
 
   private JWT_TOKEN = 'extrJWT';
 
@@ -34,14 +35,16 @@ export class AuthService {
    * { "email": "abc@xyz.com", "password": "password" }
    */
   login(email: string, password: string) {
-    return this.http.post(this.loginUrl, { email, password })
+    return this.http.post(this.loginUrl, { email, password });
+  }
+
+  register(email: string, password: string) {
+    return this.http.post(this.registerUrl, { email, password });
   }
 
   loggedIn(): boolean {
     return !!this.localStorage.getItem(this.JWT_TOKEN);
   }
-
-
 
   getToken(): string {
     return (this.localStorage.getItem(this.JWT_TOKEN) as string) || '';

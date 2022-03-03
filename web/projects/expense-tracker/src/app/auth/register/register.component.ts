@@ -1,5 +1,25 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { SubSink } from 'subsink';
+
+import { AuthService, LocalStorageService } from '@extr/core';
+import { Router } from '@angular/router';
+
+function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null {
+
+  const passwordControl = c.get('password');
+  const confirmPasswordControl = c.get('confirmPassword');
+
+  if (passwordControl?.pristine || confirmPasswordControl?.pristine) {
+    return null;
+  }
+
+  if (passwordControl?.value === confirmPasswordControl?.value) {
+    return null
+  }
+
+  return { match: true };
+}
 
 @Component({
   selector: 'xtr-register',
@@ -8,14 +28,21 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
 
+  private subs = new SubSink();
+
   registerForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    confirmPassword: ['', Validators.required],
+    passwordGroup: this.fb.group({
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    }, { validators: passwordMatcher }),
   })
 
   constructor(
     private fb: FormBuilder,
+    private localStorage: LocalStorageService,
+    private router: Router,
+    private authService: AuthService,
   ) { }
 
   onSubmit() {
@@ -23,6 +50,16 @@ export class RegisterComponent {
       console.log('Invalid form');
       return;
     }
-    console.log(this.registerForm.value)
+
+    const { email, passwordGroup: { password } } = this.registerForm.value;
+    this.subs.sink = this.authService.register(email, password)
+      .subscribe((res: any) => {
+        this.localStorage.setItem(this.authService.loginTokenKey, res.token);
+        this.router.navigate(['/']);
+      });
   }
+
+
+
+
 }
