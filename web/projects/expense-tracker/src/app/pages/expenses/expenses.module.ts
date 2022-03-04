@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { ExpensesRoutingModule } from './expenses-routing.module';
 import { ExpensesComponent } from './expenses.component';
@@ -17,12 +19,17 @@ import { CategoryIconModule } from '@extr/shared';
     ExpenseRecordComponent
   ],
   imports: [
+    /** Vendor modules */
     CommonModule,
-    ExpensesRoutingModule,
     MatExpansionModule,
     MatListModule,
-    CategoryIconModule,
     MatDividerModule,
+    MatButtonModule,
+    MatIconModule,
+
+    /** App modules */
+    ExpensesRoutingModule,
+    CategoryIconModule,
   ]
 })
 export class ExpensesModule { }

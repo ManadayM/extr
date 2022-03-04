@@ -1,5 +1,15 @@
-<mat-accordion class="example-headers-align" multi>
+<mat-accordion multi>
   <ng-container *ngFor="let dayRecord of dayRecords">
     <xtr-day-record [data]="dayRecord"></xtr-day-record>
   </ng-container>
+
+  <!-- Botton padding for FAB -->
+  <div class="pb-6"></div>
 </mat-accordion>
+
+<button mat-fab color="accent" class="fixed right-4 bottom-4 invisible md:visible">
+  <mat-icon>add</mat-icon>
+</button>
+<button mat-mini-fab color="accent" class="fixed right-4 bottom-4 visible md:invisible">
+  <mat-icon>add</mat-icon>
+</button>
