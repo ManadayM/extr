@@ -157,7 +157,8 @@ $dark-theme: mat.define-dark-theme(
 @include mat.input-theme($light-theme);
 @include mat.button-theme($light-theme);
 @include mat.icon-theme($light-theme);
-
+@include mat.select-theme($light-theme);
+@include mat.datepicker-theme($light-theme);
 
 .dark {
   @include theme-props(
@@ -184,4 +185,6 @@ $dark-theme: mat.define-dark-theme(
   @include mat.input-color($dark-theme);
   @include mat.button-color($dark-theme);
   @include mat.icon-color($dark-theme);
+  @include mat.select-color($dark-theme);
+  @include mat.datepicker-color($dark-theme);
 }

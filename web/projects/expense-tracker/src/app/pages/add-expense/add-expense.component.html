@@ -1,0 +1,41 @@
+<div class="flex w-full h-full justify-center items-center">
+  <div class="w-96 p-8 shadow-lg">
+    <h1 class="w-full text-center">Expense</h1>
+
+    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+
+      <div class="flex flex-col">
+        <mat-form-field>
+          <mat-label>Amount</mat-label>
+          <input type="text" inputmode="numeric" matInput placeholder="152.23" formControlName="amount"
+            autocomplete="off">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option value="1">Vegetables</mat-option>
+            <mat-option value="2">Fruits</mat-option>
+            <mat-option value="3">Shopping</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input type="text" matInput placeholder="Milk" formControlName="description">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="expenseDate" placeholder="yyyy-mm-dd">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit">Save Expense</button>
+
+        <a mat-button class="mt-2" routerLink="/expenses">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
