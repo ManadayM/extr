@@ -9,7 +9,8 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       { path: 'expenses', loadChildren: () => import('./expenses/expenses.module').then(m => m.ExpensesModule) },
-      { path: 'expenses/:id', loadChildren: () => import('./expense-detail/expense-detail.module').then(m => m.ExpenseDetailModule) },
+      { path: 'expenses/new', loadChildren: () => import('./add-expense/add-expense.module').then(m => m.AddExpenseModule) },
+      { path: 'expenses/:id/edit', loadChildren: () => import('./add-expense/add-expense.module').then(m => m.AddExpenseModule) },
       { path: '', redirectTo: 'expenses', pathMatch: 'full' },
       { path: '**', redirectTo: 'expenses' }
     ]
