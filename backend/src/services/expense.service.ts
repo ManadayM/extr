@@ -7,7 +7,8 @@ export const findAll = async (userId: number): Promise<IExpense[]> => {
     SELECT expenses.id, details, amount, category_id, categories.name as category_name, TO_CHAR(expense_date, 'yyyy-mm-dd') as expense_date
     FROM expenses
     JOIN categories ON categories.id = expenses.category_id
-    WHERE user_id = $1;
+    WHERE user_id = $1
+    ORDER BY expense_date DESC;
   `;
 
   const { rows } = await db.query(query, [userId]);
