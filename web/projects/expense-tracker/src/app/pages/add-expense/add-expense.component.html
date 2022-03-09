@@ -14,9 +14,10 @@
         <mat-form-field>
           <mat-label>Category</mat-label>
           <mat-select formControlName="categoryId">
-            <mat-option value="1">Vegetables</mat-option>
+            <!-- <mat-option value="1">Vegetables</mat-option>
             <mat-option value="2">Fruits</mat-option>
-            <mat-option value="3">Shopping</mat-option>
+            <mat-option value="3">Shopping</mat-option> -->
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
           </mat-select>
         </mat-form-field>
 
