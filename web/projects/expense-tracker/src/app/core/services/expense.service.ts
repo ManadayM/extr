@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { IDayExpenseRecord, IExpense } from '@extr/core';
 
@@ -44,4 +44,12 @@ export class ExpenseService {
         // tap((res: any) => console.log(res)),
       );
   }
+
+  addExpense(expenseRecord: any) {
+    return this.http.post(this.apiUrl, expenseRecord)
+      .pipe(
+        tap((res: any) => console.log(res)),
+      )
+  }
+
 }

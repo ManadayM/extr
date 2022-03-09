@@ -7,12 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
-// import { DateAdapter } from '@angular/material/core';
-// import { DateFnsAdapter, MatDateFnsModule } from '@angular/material-date-fns-adapter';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 import { AddExpenseRoutingModule } from './add-expense-routing.module';
 import { AddExpenseComponent } from './add-expense.component';
-
 
 const MY_FORMATS = {
   parse: {
@@ -39,13 +37,13 @@ const MY_FORMATS = {
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    // MatDateFnsModule,
+    MatSnackBarModule,
 
     AddExpenseRoutingModule,
   ],
   providers: [
-    // { provide: DateAdapter, useClass: DateFnsAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } }
   ]
 })
 export class AddExpenseModule { }

@@ -13,7 +13,7 @@
 
         <mat-form-field>
           <mat-label>Category</mat-label>
-          <mat-select formControlName="category">
+          <mat-select formControlName="categoryId">
             <mat-option value="1">Vegetables</mat-option>
             <mat-option value="2">Fruits</mat-option>
             <mat-option value="3">Shopping</mat-option>
@@ -21,15 +21,15 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Description</mat-label>
-          <input type="text" matInput placeholder="Milk" formControlName="description">
+          <mat-label>Details</mat-label>
+          <input type="text" matInput placeholder="Milk" formControlName="details">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Date</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="expenseDate" placeholder="yyyy-mm-dd">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <input matInput [matDatepicker]="expenseDatePicker" formControlName="expenseDate" placeholder="yyyy-mm-dd">
+          <mat-datepicker-toggle matSuffix [for]="expenseDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #expenseDatePicker></mat-datepicker>
         </mat-form-field>
 
         <button mat-flat-button color="primary" type="submit">Save Expense</button>
