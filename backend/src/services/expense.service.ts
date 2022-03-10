@@ -39,3 +39,17 @@ export const create = async (newExpense: IBaseExpense): Promise<IExpense> => {
   const { rows } = await db.query(query, [amount, details, categoryId, userId, expenseDate]);
   return dbUtils.toCamelCase(rows)[0];
 };
+
+export const update = async (expense: IExpense) => {
+  const { amount, details, categoryId, expenseDate, id, userId } = expense;
+  const query = `UPDATE expenses SET
+      amount = $1,
+      details = $2,
+      category_id = $3,
+      expense_date = $4,
+      updated_at = CURRENT_TIMESTAMP
+    WHERE id = $5 AND user_id = $6;`;
+
+  // TODO: Think about error handling here
+  await db.query(query, [amount, details, categoryId, expenseDate, id, userId]);
+};

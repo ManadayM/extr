@@ -2,7 +2,7 @@ import { Response } from 'express';
 import StatusCodes from 'http-status-codes';
 
 import { logger, ExpenseService } from '@services';
-import { IBaseExpense } from '@models';
+import { IBaseExpense, IExpense } from '@models';
 
 export const addExpense = async (req: any, res: Response) => {
   // { amount: 10.76, categoryId: 10, userId: 23, expenseDate: '2022-01-22' }
@@ -13,6 +13,19 @@ export const addExpense = async (req: any, res: Response) => {
     return res.status(StatusCodes.CREATED).send(expense);
   } catch (error) {
     logger.error(`addExpense: ${error}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ error: true, message: 'Internal server error.' });
+  }
+};
+
+export const updateExpense = async (req: any, res: Response) => {
+  // { amount: 10.76, categoryId: 10, userId: 23, expenseDate: '2022-01-22' }
+  const expenseRecord: IExpense = { ...req.body, id: req.params.id, userId: req.user.id };
+
+  try {
+    await ExpenseService.update(expenseRecord);
+    return res.status(StatusCodes.OK).send();
+  } catch (error) {
+    logger.error(`updateExpense: ${error}`);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ error: true, message: 'Internal server error.' });
   }
 };
