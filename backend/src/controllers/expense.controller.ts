@@ -28,3 +28,18 @@ export const getAllExpenses = async (req: any, res: Response) => {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ error: true, message: 'Internal server error.' });
   }
 };
+
+
+export const getExpenseById = async (req: any, res: Response) => {
+
+  try {
+    const expense = await ExpenseService.findOne(req.user.id, req.params.id);
+    if (expense) {
+      return res.status(StatusCodes.OK).send(expense);
+    }
+    return res.status(StatusCodes.NOT_FOUND).send();
+  } catch (error) {
+    logger.error(`getExpenseById: ${error}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ error: true, message: 'Internal server error.' });
+  }
+};
