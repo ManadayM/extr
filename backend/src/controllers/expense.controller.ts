@@ -19,6 +19,8 @@ export const addExpense = async (req: any, res: Response) => {
 
 export const updateExpense = async (req: any, res: Response) => {
   // { amount: 10.76, categoryId: 10, userId: 23, expenseDate: '2022-01-22' }
+  console.log(new Date(req.body.expenseDate));
+
   const expenseRecord: IExpense = { ...req.body, id: req.params.id, userId: req.user.id };
 
   try {

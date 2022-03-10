@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IDayExpenseRecord, IExpense } from '@extr/core';
+import { IBaseExpense, IDayExpenseRecord, IExpense } from '@extr/core';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +56,11 @@ export class ExpenseService {
     return this.http.post(this.apiUrl, expenseRecord)
       .pipe(
         // tap((res: any) => console.log(res)),
-      )
+      );
+  }
+
+  updateExpense(expenseId: number, expenseRecord: IBaseExpense) {
+    return this.http.put(`${this.apiUrl}/${expenseId}`, expenseRecord);
   }
 
 }

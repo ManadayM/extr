@@ -56,17 +56,32 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
     this.expenseId = parseInt(this.route.snapshot.paramMap.get('id') || '0');
   }
 
+  onExpenseSaved() {
+    this.snackBar.open('Expense details saved successfully.');
+    this.router.navigate(['/expenses']);
+  }
+
   onSubmit() {
     if (!this.expenseForm.valid) {
       return;
     }
 
-    this.subs.sink = this.expenseService
-      .addExpense(this.expenseForm.value)
-      .subscribe(() => {
-        this.snackBar.open('Expense details saved successfully.');
-        this.router.navigate(['/expenses']);
-      });
+    // TODO: Improve the date transformation logic
+    let { expenseDate } = this.expenseForm.value;
+    expenseDate = new Date(expenseDate);
+    expenseDate = `${expenseDate.getFullYear()}-${(expenseDate.getMonth() < 9 ? '0' : '') + (expenseDate.getMonth() + 1)}-${(expenseDate.getDate() < 10 ? '0' : '') + expenseDate.getDate()}`;
+    const expenseRecord = { ...this.expenseForm.value, expenseDate: expenseDate };
+
+    if (this.expenseId) {
+      this.subs.sink = this.expenseService
+        .updateExpense(this.expenseId, expenseRecord)
+        .subscribe(() => this.onExpenseSaved());
+    }
+    else {
+      this.subs.sink = this.expenseService
+        .addExpense(expenseRecord)
+        .subscribe(() => this.onExpenseSaved());
+    }
   }
 
   ngOnDestroy(): void {
