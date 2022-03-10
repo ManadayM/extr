@@ -14,6 +14,21 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
 
   private subs = new SubSink();
 
+  private _expenseId = 0;
+
+  public get expenseId() {
+    return this._expenseId;
+  }
+
+  public set expenseId(id: number) {
+    if (this.expenseId !== id) {
+      this._expenseId = id;
+
+      this.subs.sink = this.expenseService.getExpenseById(id)
+        .subscribe(expense => this.expenseForm.patchValue({ ...expense }))
+    }
+  }
+
   public categories: ICategory[] = [{ id: 10, name: 'Others', icon: '' }];
 
   public expenseForm = this.fb.group({
@@ -22,6 +37,7 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
     details: ['', [Validators.maxLength(100)]],
     expenseDate: [new Date(), [Validators.required]],
   });
+
 
   constructor(
     private route: ActivatedRoute,
@@ -33,10 +49,11 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    console.log(`Route loaded with id: ${this.route.snapshot.paramMap.get('id')}`)
 
     this.subs.sink = this.categoryService.getCategories()
       .subscribe(categories => this.categories = categories);
+
+    this.expenseId = parseInt(this.route.snapshot.paramMap.get('id') || '0');
   }
 
   onSubmit() {
@@ -46,7 +63,7 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
 
     this.subs.sink = this.expenseService
       .addExpense(this.expenseForm.value)
-      .subscribe((_res: any) => {
+      .subscribe(() => {
         this.snackBar.open('Expense details saved successfully.');
         this.router.navigate(['/expenses']);
       });

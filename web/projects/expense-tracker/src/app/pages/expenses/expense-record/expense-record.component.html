@@ -1,4 +1,4 @@
-<mat-list-item>
+<mat-list-item class="cursor-pointer" (click)="editExpense()">
   <div class="w-full flex justify-between items-center">
     <div class="flex justify-start items-center">
       <xtr-category-icon [icon]="data.categoryName | lowercase"></xtr-category-icon>
