@@ -16,6 +16,8 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
 
   private _expenseId = 0;
 
+  public isEditMode = false;
+
   public get expenseId() {
     return this._expenseId;
   }
@@ -23,6 +25,7 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
   public set expenseId(id: number) {
     if (this.expenseId !== id) {
       this._expenseId = id;
+      this.isEditMode = true;
 
       this.subs.sink = this.expenseService.getExpenseById(id)
         .subscribe(expense => this.expenseForm.patchValue({ ...expense }))
@@ -61,6 +64,11 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
     this.router.navigate(['/expenses']);
   }
 
+  onExpenseDeleted() {
+    this.snackBar.open('Expense details deleted successfully.');
+    this.router.navigate(['/expenses']);
+  }
+
   onSubmit() {
     if (!this.expenseForm.valid) {
       return;
@@ -81,6 +89,14 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
       this.subs.sink = this.expenseService
         .addExpense(expenseRecord)
         .subscribe(() => this.onExpenseSaved());
+    }
+  }
+
+  deleteExpense() {
+    if(this.expenseId){
+      this.subs.sink = this.expenseService
+        .deleteExpense(this.expenseId)
+        .subscribe(() => this.onExpenseDeleted())
     }
   }
 

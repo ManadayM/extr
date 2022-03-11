@@ -63,4 +63,8 @@ export class ExpenseService {
     return this.http.put(`${this.apiUrl}/${expenseId}`, expenseRecord);
   }
 
+  deleteExpense(expenseId: number) {
+    return this.http.delete(`${this.apiUrl}/${expenseId}`);
+  }
+
 }

@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AddExpenseRoutingModule } from './add-expense-routing.module';
 import { AddExpenseComponent } from './add-expense.component';
@@ -38,6 +39,7 @@ const MY_FORMATS = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
+    MatDividerModule,
 
     AddExpenseRoutingModule,
   ],

@@ -1,6 +1,6 @@
 <div class="flex w-full h-full justify-center items-center">
   <div class="w-96 p-8 shadow-lg">
-    <h1 class="w-full text-center">Expense</h1>
+    <h1 class="w-full text-center">{{isEditMode ? 'Edit' : 'Add'}} Expense</h1>
 
     <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
 
@@ -33,10 +33,14 @@
           <mat-datepicker #expenseDatePicker></mat-datepicker>
         </mat-form-field>
 
-        <button mat-flat-button color="primary" type="submit">Save Expense</button>
+        <button mat-raised-button color="primary" type="submit">Save Expense</button>
 
-        <a mat-button class="mt-2" routerLink="/expenses">Cancel</a>
+        <a mat-raised-button class="mt-2" routerLink="/expenses">Cancel</a>
       </div>
     </form>
+    <ng-container *ngIf="isEditMode">
+      <mat-divider class="my-4"></mat-divider>
+      <button mat-raised-button class="w-full" color="warn" type="button" (click)="deleteExpense()">Delete Expense</button>
+    </ng-container>
   </div>
 </div>
