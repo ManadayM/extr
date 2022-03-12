@@ -2,16 +2,19 @@ import { IBaseExpense, IExpense } from '@models';
 import { dbUtils } from '@utils';
 import db from '@db';
 
-export const findAll = async (userId: number): Promise<IExpense[]> => {
+export const findAll = async (userId: number, month: number, year: number): Promise<IExpense[]> => {
   const query = `
     SELECT expenses.id, details, amount, category_id, categories.name as category_name, TO_CHAR(expense_date, 'yyyy-mm-dd') as expense_date
     FROM expenses
     JOIN categories ON categories.id = expenses.category_id
-    WHERE user_id = $1
+    WHERE
+      user_id = $1 AND
+      date_part('month', expense_date) = $2 AND
+      date_part('year', expense_date) = $3
     ORDER BY expense_date DESC;
   `;
 
-  const { rows } = await db.query(query, [userId]);
+  const { rows } = await db.query(query, [userId, month, year]);
   return dbUtils.toCamelCase(rows);
 };
 
