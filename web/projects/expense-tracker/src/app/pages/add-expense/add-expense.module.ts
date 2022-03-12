@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AddExpenseRoutingModule } from './add-expense-routing.module';
 import { AddExpenseComponent } from './add-expense.component';
 import { ConfirmDialogModule } from '@extr/shared';
+import { UnsavedExpenseGuard } from './unsaved-expense.guard';
 
 const MY_FORMATS = {
   parse: {
@@ -46,6 +47,7 @@ const MY_FORMATS = {
     ConfirmDialogModule
   ],
   providers: [
+    UnsavedExpenseGuard,
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } },
   ],
