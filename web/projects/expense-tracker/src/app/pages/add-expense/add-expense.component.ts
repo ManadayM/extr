@@ -6,7 +6,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ExpenseService, CategoryService, ICategory } from '@extr/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent,  } from '@extr/shared';
+import { ConfirmDialogComponent, } from '@extr/shared';
+
+const dialogConfig = {
+  data: {
+    body: 'Are you sure to delete this expense?',
+    okButtonText: 'Delete',
+    okButtonStyle: 'warn'
+  }
+};
 
 @Component({
   templateUrl: './add-expense.component.html',
@@ -17,8 +25,6 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
 
   private _expenseId = 0;
-
-  public isEditMode = false;
 
   public get expenseId() {
     return this._expenseId;
@@ -33,6 +39,12 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
         .subscribe(expense => this.expenseForm.patchValue({ ...expense }))
     }
   }
+
+  public get isDirty() {
+    return this.expenseForm.dirty;
+  }
+
+  public isEditMode = false;
 
   public categories: ICategory[] = [{ id: 10, name: 'Others', icon: '' }];
 
@@ -54,6 +66,7 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) { }
 
+
   ngOnInit(): void {
 
     this.subs.sink = this.categoryService.getCategories()
@@ -63,11 +76,17 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
   }
 
   onExpenseSaved() {
+    // Reset form to avoid prompting of unsaved changes on save operation.
+    this.expenseForm.reset();
+
     this.snackBar.open('Expense details saved successfully.');
     this.router.navigate(['/expenses']);
   }
 
   onExpenseDeleted() {
+    // Reset form to avoid prompting of unsaved changes on save operation.
+    this.expenseForm.reset();
+
     this.snackBar.open('Expense details deleted successfully.');
     this.router.navigate(['/expenses']);
   }
@@ -96,23 +115,16 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
   }
 
   deleteExpense() {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        body: 'Are you sure to delete this expense?',
-        okButtonText: 'Delete',
-        okButtonStyle: 'warn'
-      }
-    });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      if(this.expenseId && result){
+
+      if (this.expenseId && result) {
         this.subs.sink = this.expenseService
           .deleteExpense(this.expenseId)
           .subscribe(() => this.onExpenseDeleted())
       }
     });
-    return;
-
   }
 
   ngOnDestroy(): void {
