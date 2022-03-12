@@ -53,3 +53,9 @@ export const update = async (expense: IExpense) => {
   // TODO: Think about error handling here
   await db.query(query, [amount, details, categoryId, expenseDate, id, userId]);
 };
+
+export const remove = async (id: number, userId: number) => {
+  const query = `DELETE FROM expenses WHERE id = $1 AND user_id = $2;`;
+
+  await db.query(query, [id, userId]);
+};
