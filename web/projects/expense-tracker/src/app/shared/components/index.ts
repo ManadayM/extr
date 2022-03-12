@@ -1,1 +1,2 @@
-export * from './category-icon/category-icon.module';
+export * from './category-icon';
+export * from './confirm-dialog';

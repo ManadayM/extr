@@ -5,6 +5,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ExpenseService, CategoryService, ICategory } from '@extr/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent,  } from '@extr/shared';
 
 @Component({
   templateUrl: './add-expense.component.html',
@@ -48,7 +50,8 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private expenseService: ExpenseService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -93,11 +96,23 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
   }
 
   deleteExpense() {
-    if(this.expenseId){
-      this.subs.sink = this.expenseService
-        .deleteExpense(this.expenseId)
-        .subscribe(() => this.onExpenseDeleted())
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        body: 'Are you sure to delete this expense?',
+        okButtonText: 'Delete',
+        okButtonStyle: 'warn'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(this.expenseId && result){
+        this.subs.sink = this.expenseService
+          .deleteExpense(this.expenseId)
+          .subscribe(() => this.onExpenseDeleted())
+      }
+    });
+    return;
+
   }
 
   ngOnDestroy(): void {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { AddExpenseRoutingModule } from './add-expense-routing.module';
 import { AddExpenseComponent } from './add-expense.component';
+import { ConfirmDialogModule } from '@extr/shared';
 
 const MY_FORMATS = {
   parse: {
@@ -26,9 +28,7 @@ const MY_FORMATS = {
 };
 
 @NgModule({
-  declarations: [
-    AddExpenseComponent
-  ],
+  declarations: [AddExpenseComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -40,12 +40,14 @@ const MY_FORMATS = {
     MatNativeDateModule,
     MatSnackBarModule,
     MatDividerModule,
+    MatDialogModule,
 
     AddExpenseRoutingModule,
+    ConfirmDialogModule
   ],
   providers: [
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } }
-  ]
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } },
+  ],
 })
-export class AddExpenseModule { }
+export class AddExpenseModule {}
