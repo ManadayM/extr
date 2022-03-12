@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IBaseExpense, IDayExpenseRecord, IExpense } from '@extr/core';
+import { environment } from '@extr/env';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExpenseService {
 
-  private apiUrl = 'http://localhost:3000/api/expenses';
+  private apiUrl = `${environment.apiBaseUrl}/expenses`;
 
   constructor(private http: HttpClient) { }
 

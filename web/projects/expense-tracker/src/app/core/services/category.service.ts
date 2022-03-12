@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { environment } from '@extr/env';
 
 import { ICategory } from '../models';
 
@@ -9,7 +9,7 @@ import { ICategory } from '../models';
 })
 export class CategoryService {
 
-  private apiUrl = 'http://localhost:3000/api/categories';
+  private apiUrl = `${environment.apiBaseUrl}/categories`;
 
   constructor(
     private http: HttpClient
@@ -18,7 +18,7 @@ export class CategoryService {
   getCategories() {
     return this.http.get<ICategory[]>(this.apiUrl)
       .pipe(
-        tap(res => console.log(res))
+        // tap(res => console.log(res))
       )
   }
 }

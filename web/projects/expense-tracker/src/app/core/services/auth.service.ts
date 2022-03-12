@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@extr/env';
 
 import { LocalStorageService } from '.';
 
@@ -8,8 +9,8 @@ import { LocalStorageService } from '.';
 })
 export class AuthService {
 
-  private loginUrl = `http://localhost:3000/api/auth/login`;
-  private registerUrl = `http://localhost:3000/api/auth/register`;
+  private loginUrl = `${environment.apiBaseUrl}/auth/login`;
+  private registerUrl = `${environment.apiBaseUrl}/auth/register`;
 
   private JWT_TOKEN = 'extrJWT';
 
