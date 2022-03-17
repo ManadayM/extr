@@ -11,12 +11,14 @@ import { ExpensesComponent } from './expenses.component';
 import { DayRecordComponent } from './day-record/day-record.component';
 import { ExpenseRecordComponent } from './expense-record/expense-record.component';
 import { CategoryIconModule } from '@extr/shared';
+import { SummaryRecordComponent } from './summary-record/summary-record.component';
 
 @NgModule({
   declarations: [
     ExpensesComponent,
     DayRecordComponent,
-    ExpenseRecordComponent
+    ExpenseRecordComponent,
+    SummaryRecordComponent
   ],
   imports: [
     /** Vendor modules */

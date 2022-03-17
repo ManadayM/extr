@@ -15,3 +15,19 @@ export interface IDayExpenseRecord {
   totalAmount: number;
   expenses: IExpense[]
 }
+
+export interface IExpenseCategorySummary {
+  categoryId: number;
+  categoryName: string;
+  totalAmount: number;
+}
+
+export interface IExpenseSummary {
+  totalAmount: number;
+  categories: IExpenseCategorySummary[];
+}
+
+export interface IExpenses {
+  summary: IExpenseSummary;
+  expenses: IDayExpenseRecord[]
+}

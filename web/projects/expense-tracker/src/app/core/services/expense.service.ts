@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IBaseExpense, IDayExpenseRecord, IExpense } from '@extr/core';
+import { IBaseExpense, IExpense } from '@extr/core';
 import { environment } from '@extr/env';
+import { IExpenses } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,13 @@ export class ExpenseService {
    * Transformed Response
    * [ { "expenseDate": "2022-02-07", "total": 950, "expenses": [ {  } ] }, ...]
    */
-  getExpenses(): Observable<IDayExpenseRecord[]> {
+  getExpenses(): Observable<IExpenses> {
+
+
     return this.http.get<IExpense[]>(this.apiUrl)
       .pipe(
         map((data: IExpense[]) => {
+
           return data.reduce((result: any, expenseRecord: any) => {
             const { expenseDate, ...rest } = expenseRecord;
 
@@ -36,11 +40,34 @@ export class ExpenseService {
             result[expenseDate].totalAmount += expenseRecord.amount;
             result[expenseDate].expenses.push(rest);
 
+            // Push and add current expense's amount to the total time range's amount
+            result.summary.totalAmount += expenseRecord.amount;
+
+            // Category-wise total amount
+            if (!result.summary.categories[expenseRecord.categoryId]) {
+              result.summary.categories[expenseRecord.categoryId] = {
+                categoryId: expenseRecord.categoryId,
+                categoryName: expenseRecord.categoryName,
+                totalAmount: expenseRecord.amount
+              };
+            }
+            else {
+              result.summary.categories[expenseRecord.categoryId].totalAmount += expenseRecord.amount;
+            }
+
             return result;
-          }, {})
+          }, { summary: { totalAmount: 0, categories: {} } })
         }),
 
-        map(data => Object.values(data)),
+        // tap((res: any) => console.log(res)),
+
+        map(data => {
+          const { summary, ...expenses } = data;
+          return {
+            summary: { ...summary, categories: Object.values(summary.categories) },
+            expenses: Object.values(expenses)
+          }
+        }),
 
         // tap((res: any) => console.log(res)),
       );

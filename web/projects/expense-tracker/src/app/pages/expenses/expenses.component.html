@@ -1,4 +1,11 @@
 <mat-accordion multi>
+
+  <!-- Summary Record -->
+  <ng-container *ngIf="summary">
+    <xtr-summary-record [data]="summary"></xtr-summary-record>
+  </ng-container>
+
+  <!-- Day Records -->
   <ng-container *ngFor="let dayRecord of dayRecords">
     <xtr-day-record [data]="dayRecord"></xtr-day-record>
   </ng-container>
