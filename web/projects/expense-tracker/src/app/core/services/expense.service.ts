@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -26,10 +26,14 @@ export class ExpenseService {
    * Transformed Response
    * [ { "expenseDate": "2022-02-07", "total": 950, "expenses": [ {  } ] }, ...]
    */
-  getExpenses(): Observable<IExpenses> {
+  getExpenses(month?: number, year?: number): Observable<IExpenses> {
 
+    const today = new Date();
+    const params = new HttpParams()
+      .set('month', month || (today.getMonth() + 1))
+      .set('year', year || today.getFullYear());
 
-    return this.http.get<IExpense[]>(this.apiUrl)
+    return this.http.get<IExpense[]>(this.apiUrl, { params })
       .pipe(
         map((data: IExpense[]) => {
 
@@ -42,6 +46,11 @@ export class ExpenseService {
 
             // Push and add current expense's amount to the total time range's amount
             result.summary.totalAmount += expenseRecord.amount;
+
+            // Set start date since when the expenses for the time range started.
+            if (!result.summary.startDate) {
+              result.summary.startDate = expenseDate;
+            }
 
             // Category-wise total amount
             if (!result.summary.categories[expenseRecord.categoryId]) {

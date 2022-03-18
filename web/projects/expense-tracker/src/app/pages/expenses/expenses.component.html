@@ -1,5 +1,16 @@
 <mat-accordion multi>
 
+  <div class="flex justify-end">
+    <mat-form-field>
+      <mat-label>Month and Year</mat-label>
+      <input matInput [matDatepicker]="dp" [formControl]="date">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+        (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker" [disabled]="false">
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+
   <!-- Summary Record -->
   <ng-container *ngIf="summary">
     <xtr-summary-record [data]="summary"></xtr-summary-record>

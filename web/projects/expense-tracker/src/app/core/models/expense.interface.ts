@@ -24,6 +24,7 @@ export interface IExpenseCategorySummary {
 
 export interface IExpenseSummary {
   totalAmount: number;
+  startDate: Date;
   categories: IExpenseCategorySummary[];
 }
 
