@@ -12,20 +12,28 @@ import { LoginComponent } from './login.component';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let mockAuthService: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
     const authSpy = jasmine.createSpyObj(AuthService, ['loggedIn']);
 
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, NoopAnimationsModule],
-      declarations: [ LoginComponent ],
-      providers: [{
-        provide: AuthService,
-        useValue: authSpy
-      }]
-    })
-    .compileComponents();
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        NoopAnimationsModule,
+      ],
+      declarations: [LoginComponent],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: authSpy,
+        },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
