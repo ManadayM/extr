@@ -8,7 +8,6 @@ import { PagesComponent } from './pages.component';
 describe('PagesComponent', () => {
   let component: PagesComponent;
   let fixture: ComponentFixture<PagesComponent>;
-  let mockAuthService: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
     const authSpy = jasmine.createSpyObj(AuthService, ['loggedIn']);
@@ -25,7 +24,6 @@ describe('PagesComponent', () => {
   });
 
   beforeEach(() => {
-    mockAuthService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>
 
     fixture = TestBed.createComponent(PagesComponent);
     component = fixture.componentInstance;
