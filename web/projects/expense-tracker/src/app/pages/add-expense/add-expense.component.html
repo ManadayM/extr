@@ -2,7 +2,7 @@
   <div class="w-96 p-8 shadow-lg">
     <h1 class="w-full text-center">{{isEditMode ? 'Edit' : 'Add'}} Expense</h1>
 
-    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="expenseForm">
 
       <div class="flex flex-col">
         <mat-form-field>
@@ -32,15 +32,21 @@
           <mat-datepicker-toggle matSuffix [for]="expenseDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #expenseDatePicker></mat-datepicker>
         </mat-form-field>
-
-        <button mat-raised-button color="primary" type="submit">Save Expense</button>
-
-        <a mat-raised-button class="mt-2" routerLink="/expenses">Cancel</a>
       </div>
+
+      <div class="flex space-x-4">
+        <button mat-raised-button color="primary" type="submit" aria-label="Save and add another"
+          (click)="onSubmit(true)" *ngIf="!isEditMode" class="flex-shrink-0">Save and Add Another</button>
+
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" class="flex-1">Save</button>
+
+        <a mat-button routerLink="/expenses" class="flex-1">Cancel</a>
+      </div>
+
     </form>
     <ng-container *ngIf="isEditMode">
       <mat-divider class="my-4"></mat-divider>
-      <button mat-raised-button class="w-full" color="warn" type="button" (click)="deleteExpense()">Delete Expense</button>
+      <button mat-raised-button class="w-full" color="warn" type="button" (click)="deleteExpense()">Delete</button>
     </ng-container>
   </div>
 </div>

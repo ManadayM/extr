@@ -17,8 +17,7 @@ const dialogConfig = {
 };
 
 @Component({
-  templateUrl: './add-expense.component.html',
-  styleUrls: ['./add-expense.component.scss']
+  templateUrl: './add-expense.component.html'
 })
 export class AddExpenseComponent implements OnInit, OnDestroy {
 
@@ -46,11 +45,11 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
 
   public isEditMode = false;
 
-  public categories: ICategory[] = [{ id: 10, name: 'Others', icon: '' }];
+  public categories: ICategory[] = [{ id: 35, name: 'Others', icon: '' }];
 
   public expenseForm = this.fb.group({
     amount: ['', [Validators.required, Validators.pattern(/^(\d*\.)?\d+$/)]],
-    categoryId: [10, [Validators.required]],
+    categoryId: [35, [Validators.required]],
     details: ['', [Validators.maxLength(100)]],
     expenseDate: [new Date(), [Validators.required]],
   });
@@ -77,10 +76,13 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
 
   onExpenseSaved() {
     // Reset form to avoid prompting of unsaved changes on save operation.
-    this.expenseForm.reset();
-
+    this.expenseForm.reset({
+      amount: 0,
+      categoryId: 35,
+      details: '',
+      expenseDate: this.expenseForm.value['expenseDate'] || new Date()
+    });
     this.snackBar.open('Expense details saved successfully.');
-    this.router.navigate(['/expenses']);
   }
 
   onExpenseDeleted() {
@@ -91,7 +93,7 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
     this.router.navigate(['/expenses']);
   }
 
-  onSubmit() {
+  onSubmit(saveAndAddAnother = false) {
     if (!this.expenseForm.valid) {
       return;
     }
@@ -105,12 +107,19 @@ export class AddExpenseComponent implements OnInit, OnDestroy {
     if (this.expenseId) {
       this.subs.sink = this.expenseService
         .updateExpense(this.expenseId, expenseRecord)
-        .subscribe(() => this.onExpenseSaved());
+        .subscribe(() => {
+          this.onExpenseSaved();
+          this.router.navigate(['/expenses']);
+        });
     }
     else {
       this.subs.sink = this.expenseService
         .addExpense(expenseRecord)
-        .subscribe(() => this.onExpenseSaved());
+        .subscribe(() => {
+          this.onExpenseSaved();
+          // Don't redirect, if user wants to add one more expense.
+          saveAndAddAnother === false && this.router.navigate(['/expenses']);
+        });
     }
   }
 

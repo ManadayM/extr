@@ -161,6 +161,7 @@ $dark-theme: mat.define-dark-theme(
 @include mat.datepicker-theme($light-theme);
 @include mat.snack-bar-theme($light-theme);
 @include mat.dialog-theme($light-theme);
+@include mat.checkbox-theme($light-theme);
 
 .dark {
   @include theme-props(
@@ -191,4 +192,5 @@ $dark-theme: mat.define-dark-theme(
   @include mat.datepicker-color($dark-theme);
   @include mat.snack-bar-color($dark-theme);
   @include mat.dialog-color($dark-theme);
+  @include mat.checkbox-color($dark-theme);
 }
